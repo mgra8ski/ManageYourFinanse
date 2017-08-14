@@ -1,0 +1,47 @@
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+@section scripts{
+<script type="text/javascript" src="~/js/TodoListController.js"></script>
+
+}
+
+
+<html ng-app="todoApp">
+<head>
+    <style>
+        .done-true {
+            text-decoration: line-through;
+            color: grey;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                LEFT
+            </div>
+            <div class="col" ng-controller="TodoListController as todoList">
+                <span>{{todoList.remaining()}} of {{todoList.todos.length}}</span>
+                [<a href="" ng-click="todoList.archive()">archive</a>]
+                <ul class="list-unstyled">
+                    <li ng-repeat="todo in todoList.todos">
+                        <label class="checkbox">
+                            <input type="checkbox" ng-model="todo.done">
+                            <span class="done-{{todo.done}}">{{todo.text}}</span>
+                        </label>
+                    </li>
+                </ul>
+                <form ng-submit="todoList.addTodo()">
+                    <input type="text" ng-model="todoList.todoText" size="30" placeholder="add ew todo here" />
+                    <input type="submit" value="add" class="btn-primary" />
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
